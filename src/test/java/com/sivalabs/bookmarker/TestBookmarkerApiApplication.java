@@ -1,5 +1,6 @@
 package com.sivalabs.bookmarker;
 
+import com.example.BookmarkerApiApplication;
 import org.springframework.boot.SpringApplication;
 
 public class TestBookmarkerApiApplication {
