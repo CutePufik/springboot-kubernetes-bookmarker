@@ -11,7 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface BookmarkRepository extends JpaRepository<Bookmark,Long> {
 
 
-    @Query("select new com.example.BookmarkDTO(b.id,b.title,b.url,b.createdAt) from Bookmark b")
+    @Query(
+            value = "SELECT new com.example.BookmarkDTO(b.id, b.title, b.url, b.createdAt) FROM Bookmark b",
+            countQuery = "SELECT count(b) FROM Bookmark b"
+    )
     Page<BookmarkDTO> findBookmarks(Pageable pageable);
 
 }
