@@ -1,4 +1,4 @@
-package com.sivalabs.bookmarker;
+package com.example.bookmarker;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

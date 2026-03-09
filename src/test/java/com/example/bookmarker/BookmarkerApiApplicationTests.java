@@ -1,4 +1,4 @@
-package com.sivalabs.bookmarker;
+package com.example.bookmarker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
