@@ -52,6 +52,9 @@ public class BookmarkDTO {
         this.createdAt = createdAt;
     }
 
+    public BookmarkDTO() {
+    }
+
     public BookmarkDTO(Long id, String title, String url, Instant createdAt) {
         this.id = id;
         this.title = title;

@@ -1,14 +1,15 @@
 package com.example.controller;
 
 
+import com.example.BookmarkDTO;
 import com.example.BookmarksDTO;
+import com.example.CreateBookmarkRequest;
 import com.example.service.BookmarkService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bookmarks")
@@ -32,6 +33,12 @@ public class BookmarkController {
         }
         return bookmarkService.searchBookmarks(page, query);
 
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookmarkDTO createBookmark(@RequestBody @Valid CreateBookmarkRequest request){
+        return bookmarkService.createBookmark(request);
     }
 
 

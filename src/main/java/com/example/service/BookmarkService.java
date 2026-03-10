@@ -1,11 +1,11 @@
 package com.example.service;
 
 
-import com.example.BookmarkDTO;
-import com.example.BookmarkVM;
-import com.example.BookmarksDTO;
+import com.example.*;
+import com.example.domain.Bookmark;
 import com.example.repository.BookmarkRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +13,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 @Service
 @Transactional
 public class BookmarkService {
 
     private final BookmarkRepository repository;
 
-    public BookmarkService(BookmarkRepository repository) {
+    private final BookmarkMapper bookmarkMapper;
+
+
+    @Autowired
+    public BookmarkService(BookmarkRepository repository, BookmarkMapper bookmarkMapper) {
         this.repository = repository;
+        this.bookmarkMapper = bookmarkMapper;
     }
 
 
@@ -42,4 +49,10 @@ public class BookmarkService {
     }
 
 
+
+    public BookmarkDTO createBookmark(CreateBookmarkRequest request) {
+        Bookmark bookmark = new Bookmark(null,request.getTitle(),request.getUrl(), Instant.now());
+        Bookmark saved = repository.save(bookmark);
+        return bookmarkMapper.toDTO(saved);
+    }
 }

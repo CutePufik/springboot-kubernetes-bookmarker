@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -18,6 +19,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -100,6 +102,22 @@ class BookmarkControllerTest {
                 .andExpect(jsonPath("$.hasNext", CoreMatchers.equalTo(true)))
                 .andExpect(jsonPath("$.hasPrevious", CoreMatchers.equalTo(false)))
         ;
+    }
+
+    @Test
+    void shouldCreateBookmarkSuccessfully() throws Exception{
+        this.mvc.perform(
+                post("/api/bookmarks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "title" : "blog",
+                                "url" : "google.com"
+                                }
+                                """)
+        )
+                .andExpect(status().isCreated());
+
     }
 
 
