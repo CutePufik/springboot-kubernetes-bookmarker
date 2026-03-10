@@ -1,45 +1,43 @@
 package com.example;
 
-import com.example.domain.Bookmark;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-
-@Setter
-@Getter
 public class BookmarksDTO {
 
-    private List<BookmarkDTO> data;
-
-
+    private List<BookmarkVM> data;
     private long totalElements;
-
     private int totalPages;
-
     private int currentPage;
-
-    @JsonProperty("isFirst")
     private boolean isFirst;
-
-    @JsonProperty("isLast")
     private boolean isLast;
-
     private boolean hasNext;
-
     private boolean hasPrevious;
 
-    public BookmarksDTO(Page<BookmarkDTO> bookmarkPage) {
-        this.setData(bookmarkPage.getContent());
-        this.setTotalElements(bookmarkPage.getTotalElements());
-        this.setTotalPages(bookmarkPage.getTotalPages());
-        this.setCurrentPage(bookmarkPage.getNumber() + 1);
-        this.setFirst(bookmarkPage.isFirst());
-        this.setLast(bookmarkPage.isLast());
-        this.setHasNext(bookmarkPage.hasNext());
-        this.setHasPrevious(bookmarkPage.hasPrevious());
+    public BookmarksDTO(Page<BookmarkVM> bookmarkPage) {
+        this.data = bookmarkPage.getContent();
+        this.totalElements = bookmarkPage.getTotalElements();
+        this.totalPages = bookmarkPage.getTotalPages();
+        this.currentPage = bookmarkPage.getNumber() + 1;
+        this.isFirst = bookmarkPage.isFirst();
+        this.isLast = bookmarkPage.isLast();
+        this.hasNext = bookmarkPage.hasNext();
+        this.hasPrevious = bookmarkPage.hasPrevious();
     }
+
+    public List<BookmarkVM> getData() { return data; }
+    public long getTotalElements() { return totalElements; }
+    public int getTotalPages() { return totalPages; }
+    public int getCurrentPage() { return currentPage; }
+
+    @JsonProperty("isFirst")
+    public boolean isFirst() { return isFirst; }
+
+    @JsonProperty("isLast")
+    public boolean isLast() { return isLast; }
+
+    public boolean isHasNext() { return hasNext; }
+    public boolean isHasPrevious() { return hasPrevious; }
 }
